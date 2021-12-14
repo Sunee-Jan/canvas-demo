@@ -18,18 +18,21 @@
         canvas.height = document.documentElement.clientHeight//注意，如果用document.body.clientWidth，获取的是body的宽高，但是body的高度是根据内容的高度的。
         var ctx = canvas.getContext("2d");
         ctx.fillStyle = "blue";
+        ctx.strokeStyle = 'blue';
         let painting = 0;
         canvas.onmousedown = (e) => {
             if (painting === 0) {
                 console.log(e.clientX);
                 console.log(e.clientY);
-                ctx.fillRect(e.clientX, e.clientY, 10, 10);
                 painting = 1;
             }
         }
         canvas.onmousemove = (e) => {
             if (painting === 1) {
-                ctx.fillRect(e.clientX, e.clientY, 10, 10);
+                ctx.beginPath();
+                ctx.arc(e.clientX, e.clientY, 10, 0, 2 * Math.PI, true);
+                ctx.stroke();
+                ctx.fill();
             }
             else {
                 console.log('什么都不做');
