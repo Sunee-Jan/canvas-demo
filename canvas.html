@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="canvas.css">
+</head>
+
+<body>
+    <div id="canvas">111</div>
+    <script>
+        canvas.onclick = (e) => {
+            console.log(e.clientX)
+            console.log(e.clientY)
+            // console.log()调试大法，定位到鼠标每次点击的坐标位置
+            let div = document.createElement('div') //在内存中创建一个div元素
+            div.style.position = "absolute"
+            div.style.width = '6px'
+            div.style.height = '6px'
+            div.style.border = "1px solid black"
+            canvas.appendChild(div)//将创建的元素放入HTML文档中canvas元素下
+            div.style.left = e.clientX + 'px'
+            div.style.top = e.clientY + 'px'
+            div.style.marginLeft = '-3px'
+            div.style.marginTop = '-3px'
+            div.style.borderRadius = '50%'
+            div.style.background = 'black'
+        }
+    </script>
+</body>
+
+</html>
