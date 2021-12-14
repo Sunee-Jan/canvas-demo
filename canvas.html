@@ -17,29 +17,43 @@
         canvas.width = document.documentElement.clientWidth//获取文档的宽高，即为浏览器可视区宽高
         canvas.height = document.documentElement.clientHeight//注意，如果用document.body.clientWidth，获取的是body的宽高，但是body的高度是根据内容的高度的。
         var ctx = canvas.getContext("2d");
-        ctx.fillStyle = "blue";
-        ctx.strokeStyle = 'blue';
+        ctx.fillStyle = "black";
+        ctx.strokeStyle = 'black    ';
         let painting = 0;
-        canvas.onmousedown = (e) => {
-            if (painting === 0) {
-                console.log(e.clientX);
-                console.log(e.clientY);
-                painting = 1;
-            }
-        }
-        canvas.onmousemove = (e) => {
-            if (painting === 1) {
+        var isTouchDevice = 'ontouchstart' in document.documentElement;
+        console.log(isTouchDevice);
+        if (isTouchDevice) {
+            canvas.ontouchmove = (e) => {
+                let x = e.touches[0].clientX;
+                let y = e.touches[0].clientY;
+                console.log(x, y);
                 ctx.beginPath();
-                ctx.arc(e.clientX, e.clientY, 10, 0, 2 * Math.PI, true);
+                ctx.arc(x, y, 8, 0, 2 * Math.PI, true);
                 ctx.stroke();
                 ctx.fill();
             }
-            else {
-                console.log('什么都不做');
-            }
         }
-        canvas.onmouseup = () => {
-            painting = 0;
+        else {
+            canvas.onmousedown = (e) => {
+                if (painting === 0) {
+                    painting = 1;
+                }
+            }
+            canvas.onmousemove = (e) => {
+                if (painting === 1) {
+                    ctx.beginPath();
+                    ctx.arc(e.clientX, e.clientY, 8, 0, 2 * Math.PI, true);
+                    ctx.stroke();
+                    ctx.fill();
+                }
+                else {
+                    console.log('什么都不做');
+                }
+            }
+            canvas.onmouseup = () => {
+                painting = 0;
+            }
+
         }
 
     </script>
